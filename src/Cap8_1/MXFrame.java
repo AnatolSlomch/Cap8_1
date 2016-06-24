@@ -9,6 +9,8 @@ package Cap8_1;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author anatol
@@ -64,7 +66,30 @@ public class MXFrame extends JFrame{
  } 
   
   private void  jButtonMX1Action(ActionEvent evt){
-      JTable matrix1 = new JTable();
+      //массив с заголовками столбцов
+      int matrixSize;
+      try{
+        matrixSize=Integer.parseInt(jTextMX1.getText());
+      } catch(NumberFormatException e){
+         JOptionPane.showMessageDialog(rootPane, e);
+         return; 
+      }
+      String[] header=new String[matrixSize];
+      for (Integer k=0;k<=matrixSize-1;++k){
+          header[k]=String.valueOf(Character.toChars(k+1+64));
+      }
+      
+      Object[][] databank=new Object[matrixSize][matrixSize];
+      for (int w=0;w<=matrixSize-1;++w){
+       for (int y=0;y<=matrixSize-1;++y){
+         databank[y][w]=w+y;
+      }}
+
+      JTable matrix1;
+     // matrix1.
+          matrix1 = new JTable( databank,header);
+      JScrollPane jscp=new JScrollPane(matrix1);
+      jPanelMX2.add(jscp);
       
   }  
 }
