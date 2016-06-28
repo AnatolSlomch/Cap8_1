@@ -46,19 +46,20 @@ public class MXFrame extends JFrame{
         jPanelMX1.setLayout(new FlowLayout(FlowLayout.LEFT));
         add(jPanelMX1);
         
-        jLabel3= new  JLabel("Matrix size");        
+        jLabel3= new  JLabel("Matrix size");
         //jLabel3.setBorder(BorderFactory.createLineBorder(Color.RED));
         jPanelMX1.add(jLabel3);
     
         jTextMX1 = new JTextField();
         jTextMX1.setColumns(10);
-        //jTextMX1.setText("           ");
+        jTextMX1.setText("5");
         jTextMX1.setSize(25, 10);
         jPanelMX1.add(jTextMX1);
         
         JButton jButtonMX1 = new JButton();
         jButtonMX1.setText("Creat matrix");
         jButtonMX1.addActionListener(new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent evt){
                 jButtonMX1Action(evt);
             }
@@ -69,6 +70,7 @@ public class MXFrame extends JFrame{
         JButton jButtonPlus = new JButton();
         jButtonPlus.setText("PLUS");
         jButtonPlus.addActionListener(new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent evt){
                 jButtonEvent(PLUS);
             }
@@ -79,6 +81,7 @@ public class MXFrame extends JFrame{
         JButton jButtonMine = new JButton();
         jButtonMine.setText("MINE");
         jButtonMine.addActionListener(new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent evt){
                 jButtonEvent(MINE);
             }
@@ -89,6 +92,7 @@ public class MXFrame extends JFrame{
         JButton jButtonMULTIPLY = new JButton();
         jButtonMULTIPLY.setText("MULTIPLY");
         jButtonMULTIPLY.addActionListener(new ActionListener(){
+            @Override
             public void actionPerformed(ActionEvent evt){
                 jButtonEvent(MULTIPLY);
             }
@@ -123,12 +127,18 @@ public class MXFrame extends JFrame{
                  break;                  
            }
       }}
+      if (matrix3 != null){
+         jscp3.remove(matrix3);
+         jPanelMX2.remove(jscp3);
+          jPanelMX2.repaint();
+       } 
       matrix3 = new JTable( databank2,header);
       matrix3.setPreferredScrollableViewportSize(new Dimension(500,100));
       jscp3=new JScrollPane(matrix3);
       jscp3.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Tab "+TabName));
       jPanelMX2.add(jscp3);
-   
+      jPanelMX2.revalidate();
+     
       
       
   }  
@@ -165,7 +175,6 @@ public class MXFrame extends JFrame{
       jscp2.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Tab 2"));
       jPanelMX2.add(jscp);
       jPanelMX2.add(jscp2);
-      Graphics g = getGraphics();
-     update(g);
+      jPanelMX2.revalidate();
   }  
 }
