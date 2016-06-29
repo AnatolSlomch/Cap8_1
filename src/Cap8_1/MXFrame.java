@@ -21,7 +21,7 @@ public class MXFrame extends JFrame{
   JPanel jPanelMX2;
   JTextField jTextMX1;
   int matrixSize;
-  Object[][] databank,databank2;
+  Object[][] databank,databank2,databank3;
   JTable matrix1,matrix2,matrix3;
   final int PLUS=1, MINE=2, MULTIPLY=3;
   String[] header;
@@ -36,7 +36,7 @@ public class MXFrame extends JFrame{
      */
   private void OpenLab(){
         //LayuotManager manager=new 
-        setBounds(10, 10, 700, 100);
+        setBounds(10, 10, 700, 300);
         getContentPane().setLayout( new BoxLayout(getContentPane(),BoxLayout.Y_AXIS));
                 
         jPanelMX1 = new JPanel();
@@ -115,15 +115,15 @@ public class MXFrame extends JFrame{
            switch (evt){
                case PLUS:
                  TabName="PLUS";
-                 databank2[y][w]= (int)matrix1.getValueAt(y, w) + (int)matrix1.getValueAt(y, w);
+                 databank2[y][w]= Integer.parseInt((String)matrix1.getValueAt(y, w)) + Integer.parseInt((String)matrix2.getValueAt(y, w));
                  break;
                case MINE:
                  TabName="MINE";
-                 databank2[y][w]= (int)matrix1.getValueAt(y, w) - (int)matrix1.getValueAt(y, w);
+                 databank2[y][w]= Integer.parseInt((String)matrix1.getValueAt(y, w)) - Integer.parseInt((String)matrix2.getValueAt(y, w));
                  break;
                case MULTIPLY:
                  TabName="MULTIPLY";
-                 databank2[y][w]= (int)matrix1.getValueAt(y, w) * (int)matrix1.getValueAt(y, w);
+                 databank2[y][w]= Integer.parseInt((String)matrix1.getValueAt(y, w)) * Integer.parseInt((String)matrix2.getValueAt(y, w));
                  break;                  
            }
       }}
@@ -157,16 +157,18 @@ public class MXFrame extends JFrame{
       }
       
       databank = new Object[matrixSize][matrixSize];
+      databank3 = new Object[matrixSize][matrixSize];
       for (int w=0;w<=matrixSize-1;++w){
        for (int y=0;y<=matrixSize-1;++y){
-         databank[y][w]=w+y;
-      }}
+         databank[y][w]=String.valueOf(w+y);
+         databank3[y][w]=String.valueOf(w+y);
+     }}
 
       matrix1 = new JTable( databank,header);
       matrix1.setPreferredScrollableViewportSize(new Dimension(500,100));
-      matrix2 = new JTable( databank,header);
+
+      matrix2 = new JTable( databank3,header);
       matrix2.setPreferredScrollableViewportSize(new Dimension(500,100));
-      matrix2.setSize(getContentPane().getWidth(), 100);
 
       jscp=new JScrollPane(matrix1);
       jscp.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Tab 1"));
@@ -175,6 +177,8 @@ public class MXFrame extends JFrame{
       jscp2.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.BLACK), "Tab 2"));
       jPanelMX2.add(jscp);
       jPanelMX2.add(jscp2);
+      
       jPanelMX2.revalidate();
+      repaint();
   }  
 }
