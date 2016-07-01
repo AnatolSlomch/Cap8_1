@@ -7,28 +7,36 @@ package Cap8_1;
 
 //import java.awt.Component;
 import java.awt.*;
+import java.io.*;
 import java.awt.event.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.SwingUtilities;
 
 /**
  *
  * @author anatol
  */
 public class MXFrame extends JFrame{
+  File file;
+  JFileChooser filechooser;
+  StringBuffer sb1,sb2;
+  String[] arrayRead;
   JLabel jLabel3;  
   JPanel jPanelMX1;
   JPanel jPanelMX2;
   JTextField jTextMX1;
   int matrixSize;
-  Object[][] databank,databank2,databank3;
+  String[][] databank,databank3;
+  Object[][] databank2;
   JTable matrix1,matrix2,matrix3;
   final int PLUS=1, MINE=2, MULTIPLY=3;
   String[] header;
   JScrollPane jscp,jscp2,jscp3;
 
   public MXFrame(){
-   OpenLab();
+    this.filechooser = new JFileChooser();
+    OpenLab();
   }
 
     /**
@@ -36,7 +44,7 @@ public class MXFrame extends JFrame{
      */
   private void OpenLab(){
         //LayuotManager manager=new 
-        setBounds(10, 10, 700, 300);
+        setBounds(10, 10, 1000, 300);
         getContentPane().setLayout( new BoxLayout(getContentPane(),BoxLayout.Y_AXIS));
                 
         jPanelMX1 = new JPanel();
@@ -100,6 +108,28 @@ public class MXFrame extends JFrame{
         );
         jPanelMX1.add(jButtonMULTIPLY);
       
+        JButton jButtonSave = new JButton();
+        jButtonSave.setText("Save to file");
+        jButtonSave.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent evt){
+                jButtonSaveEvent();
+            }
+        }
+        );
+        jPanelMX1.add(jButtonSave);
+
+        JButton jButtonLoad = new JButton();
+        jButtonLoad.setText("Load from file");
+        jButtonLoad.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent evt){
+                jButtonjButtonLoadEvent();
+            }
+        }
+        );
+        jPanelMX1.add(jButtonLoad);
+
         jPanelMX2 = new JPanel();
         jPanelMX2.setBounds(10,10,200,50);
         jPanelMX2.setBorder(BorderFactory.createEtchedBorder(Color.RED, Color.PINK));
@@ -107,6 +137,74 @@ public class MXFrame extends JFrame{
         add(jPanelMX2);
  } 
 
+  private void  jButtonjButtonLoadEvent(){
+          if (databank!=null){
+              JOptionPane.showMessageDialog(rootPane,databank.length);
+              
+          } else {
+              //databank=new 
+          }
+      if (filechooser.showOpenDialog(jPanelMX1)!=JFileChooser.APPROVE_OPTION){
+          return;
+      }
+      file = filechooser.getSelectedFile();
+      try {
+          FileReader filereaderstream=new FileReader(file);
+          BufferedReader buffin=new BufferedReader(filereaderstream);
+          String tmpS="";
+          try {
+              tmpS=buffin.readLine();
+              while ((tmpS=buffin.readLine())!=null){
+                arrayRead=tmpS.split("\t");
+                String s="";
+                for (int k=0;k<arrayRead.length;++k){
+                    s+=arrayRead[k];
+                }
+              }
+              buffin.close();
+              
+          } catch (IOException ex) {
+              Logger.getLogger(MXFrame.class.getName()).log(Level.SEVERE, null, ex);
+          }
+      } catch (FileNotFoundException ex) {
+          Logger.getLogger(MXFrame.class.getName()).log(Level.SEVERE, null, ex);
+      }
+      
+  }
+  
+  private void  jButtonSaveEvent(){
+     if(filechooser.showSaveDialog(jPanelMX1)!=JFileChooser.APPROVE_OPTION){
+         return;
+     } 
+     file = filechooser.getSelectedFile();
+     if (!file.exists()){
+         try {
+             file.createNewFile();
+         } catch (IOException ex) {
+             Logger.getLogger(MXFrame.class.getName()).log(Level.SEVERE, null, ex);
+             return;
+         }
+     }
+      try {
+          sb1=new StringBuffer();
+          sb2=new StringBuffer();
+         try (Writer writer = new FileWriter(file)) {
+             for (int w=0;w<=matrixSize-1;++w){
+                 for (int y=0;y<=matrixSize-1;++y){
+                     sb1.append("\t").append(matrix1.getValueAt(y, w).toString());
+                     sb2.append("\t").append(matrix2.getValueAt(y, w).toString());
+                 }
+                 sb1.append("\n");
+                 sb2.append("\n");
+             }
+             writer.write(sb1.toString());
+             writer.write(sb2.toString());
+         }
+      } catch (IOException ex) {
+          Logger.getLogger(MXFrame.class.getName()).log(Level.SEVERE, null, ex);
+      }
+  }
+  
   private void  jButtonEvent(int evt){
       String TabName="";
       databank2 = new Object[matrixSize][matrixSize];
@@ -156,12 +254,12 @@ public class MXFrame extends JFrame{
           header[k]=String.valueOf(Character.toChars(k+1+64));
       }
       
-      databank = new Object[matrixSize][matrixSize];
-      databank3 = new Object[matrixSize][matrixSize];
+      databank = new String[matrixSize][matrixSize];
+      databank3 = new String[matrixSize][matrixSize];
       for (int w=0;w<=matrixSize-1;++w){
        for (int y=0;y<=matrixSize-1;++y){
-         databank[y][w]=String.valueOf(w+y);
-         databank3[y][w]=String.valueOf(w+y);
+         databank[y][w]=String.valueOf(w+y+1);
+         databank3[y][w]=String.valueOf(w+y+1);
      }}
 
       matrix1 = new JTable( databank,header);
