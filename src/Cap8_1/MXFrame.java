@@ -39,7 +39,10 @@ public class MXFrame extends JFrame{
 
     Locale locale = Locale.getDefault();
     ResourceBundle rb = ResourceBundle.getBundle("Cap8_1/Bundle",locale);
-    UIManager.put("FileChooser.fileNameLabelText", rb.getString("MXFrame.filechooser.OpenButtonText"));
+    UIManager.put("FileChooser.openButtonText", rb.getString("MXFrame.filechooser.OpenButtonText"));
+    UIManager.put("FileChooser.saveButtonText", rb.getString("MXFrame.filechooser.saveButtonText"));
+    UIManager.put("FileChooser.fileNameLabelText", rb.getString("MXFrame.filechooser.fileNameLabelText"));
+    UIManager.put("FileChooser.cancelButtonText", rb.getString("MXFrame.filechooser.cancelButtonText"));
     this.filechooser = new JFileChooser();
     OpenLab();
   }
