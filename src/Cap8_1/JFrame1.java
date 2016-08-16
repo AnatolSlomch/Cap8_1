@@ -6,8 +6,11 @@
 package Cap8_1;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import javax.swing.UIManager;
+
 /**
  *
  * @author anatol
@@ -47,14 +50,15 @@ public class JFrame1 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton2.setText("Вывести занчение m2");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("Cap8_1/Bundle"); // NOI18N
+        jButton2.setText(bundle.getString("JFrame1.jButton2.text")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton1.setText("m2=m1");
+        jButton1.setText(bundle.getString("JFrame1.jButton1.text")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -85,13 +89,13 @@ public class JFrame1 extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel1.setText("file:");
+        jLabel1.setText(bundle.getString("JFrame1.jLabel1.text")); // NOI18N
 
         jToolBar1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jToolBar1.setRollover(true);
-        jToolBar1.setToolTipText("File");
+        jToolBar1.setToolTipText(bundle.getString("JFrame1.jToolBar1.toolTipText")); // NOI18N
 
-        jButton3.setText("Open");
+        jButton3.setText(bundle.getString("JFrame1.jButton3.text")); // NOI18N
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -102,7 +106,7 @@ public class JFrame1 extends javax.swing.JFrame {
         });
         jToolBar1.add(jButton3);
 
-        jButton4.setText("Matrix");
+        jButton4.setText(bundle.getString("JFrame1.jButton4.text")); // NOI18N
         jButton4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jButton4.setFocusable(false);
         jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -138,7 +142,7 @@ public class JFrame1 extends javax.swing.JFrame {
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jToolBar1.getAccessibleContext().setAccessibleName("File");
+        jToolBar1.getAccessibleContext().setAccessibleName(bundle.getString("JFrame1.jToolBar1.AccessibleContext.accessibleName")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,21 +195,42 @@ public class JFrame1 extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+    
         MXFrame frame1 = new MXFrame();
-        //frame1.setLocation(10, 10);
- //       frame1.OpenLab();
         frame1.setVisible(true);
- /*       JOptionPane.showMessageDialog(rootPane,
-                "Pane1 "+String.valueOf(frame1.jPanelMX1.getSize().height)
-                +"\nPane2 "+String.valueOf(frame1.jPanelMX2.getSize().height)
- );*/
-        //frame1.OpenLab();
+    
+   /* Locale l= Locale.getDefault();
+         this.jTextArea1.append(
+                 "   "
+                 + l.getLanguage() + ", "
+                  + l.getScript() + ", "
+                  + l.getCountry() + ", "
+                  + l.getVariant() + ", "
+                  + l.getDisplayName()
+                  + "\n");
+ /*   Locale[] s = Locale.getAvailableLocales();
+      for (int i = 0; i < s.length; i++) {
+          //System.out.println("   " 
+         this.jTextArea1.append(
+                 "   "
+                 + s[i].getLanguage() + ", "
+                  + s[i].getScript() + ", "
+                  + s[i].getCountry() + ", "
+                  + s[i].getVariant() + ", "
+                  + s[i].getDisplayName()
+                  + "\n");
+      }
+ */        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+    //Locale locale = Locale.getDefault();
+//    UIManager.put("FileChooser.cancelButtonText", rb.getString("FileChooser.cancelButtonText"));
+//    UIManager.put("FileChooser.fileNameLabelText", rb.getString("FileChooser.fileNameLabelText"));
+
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

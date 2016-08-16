@@ -9,6 +9,7 @@ package Cap8_1;
 import java.awt.*;
 import java.io.*;
 import java.awt.event.*;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -35,6 +36,10 @@ public class MXFrame extends JFrame{
   JScrollPane jscp,jscp2,jscp3;
 
   public MXFrame(){
+
+    Locale locale = Locale.getDefault();
+    ResourceBundle rb = ResourceBundle.getBundle("Cap8_1/Bundle",locale);
+    UIManager.put("FileChooser.fileNameLabelText", rb.getString("MXFrame.filechooser.OpenButtonText"));
     this.filechooser = new JFileChooser();
     OpenLab();
   }
@@ -44,7 +49,8 @@ public class MXFrame extends JFrame{
      */
   private void OpenLab(){
         //LayuotManager manager=new 
-        setBounds(10, 10, 1000, 300);
+
+         setBounds(10, 10, 1000, 300);
         getContentPane().setLayout( new BoxLayout(getContentPane(),BoxLayout.Y_AXIS));
                 
         jPanelMX1 = new JPanel();
@@ -138,7 +144,7 @@ public class MXFrame extends JFrame{
  } 
 
   private void  jButtonjButtonLoadEvent(){
-          if (databank!=null){
+      if (databank!=null){
               JOptionPane.showMessageDialog(rootPane,databank.length);
               
           } else {
